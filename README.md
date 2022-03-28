@@ -15,5 +15,7 @@ The most appropriate analysis region for Rx15day might therefore be
 the South-East Coast Topographic Drainage Division
 and some of the River Regions within the North East Coast Division.
 The BoM provides a summary and links to corresponding shapefiles
-([summary](), [shapefiles]())
-and the ABS also provides Drainage Division files.
+([summary](http://www.bom.gov.au/water/about/riverBasinAuxNav.shtml),
+[shapefiles](http://www.bom.gov.au/water/geofabric/download.shtml))
+and the ABS also provides Drainage Division files
+[here](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files).
