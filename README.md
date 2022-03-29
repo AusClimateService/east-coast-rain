@@ -19,3 +19,8 @@ The BoM provides a summary and links to corresponding shapefiles
 [shapefiles](http://www.bom.gov.au/water/geofabric/download.shtml))
 and the ABS also provides Drainage Division files
 [here](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files).
+
+### Subsequent rainfall
+
+There was [more record rainfall later in March](https://www.weatherzone.com.au/news/floodwater-rising-after-250-to-350mm-hits-qld-and-nsw-in-last-24-hours/536798)
+so a longer timescale for the analysis might also be appropriate.
