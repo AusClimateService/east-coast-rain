@@ -10,8 +10,7 @@ PROJECT_DIR=/g/data/xv83/dbi599/east-coast-rain
 VAR=pr
 BIAS_METHOD=multiplicative
 DASK_CONFIG=dask_local.yml
-IO_OPTIONS=--variables ${VAR} --shapefile ${SHAPEFILE} --spatial_agg mean  --rolling_sum_window 15 --time_freq A-AUG --time_agg max --input_freq D
-OBS_FILES=/g/data/xv83/agcd-csiro/precip/precip-total_AGCD-CSIRO_r005_*_daily.nc
+IO_OPTIONS=--variables ${VAR} --shapefile ${SHAPEFILE} --spatial_agg mean --rolling_sum_window 15 --time_freq A-AUG --time_agg max --input_freq D
 OBS_CONFIG=/home/599/dbi599/forks/unseen/config/dataset_agcd_daily.yml
 RX15DAY_OBS=${PROJECT_DIR}/data/Rx15day_AGCD-CSIRO_r005_1900-2022_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 FCST_DATA=file_lists/${MODEL}_${EXPERIMENT}_files.txt
@@ -22,10 +21,10 @@ SIMILARITY_BIAS=${PROJECT_DIR}/data/ks-test_Rx15day_${MODEL}-${EXPERIMENT}_${BAS
 SIMILARITY_RAW=${PROJECT_DIR}/data/ks-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_AGCD-CSIRO.zarr.zip
 
 
-## rx15day-obs : calculate Rx15day in observations
+## rx15day-obs : calculate and plot Rx15day in observations
 rx15day-obs : ${RX15DAY_OBS}
-${RX15DAY_OBS} : 
-	fileio ${OBS_FILES} $@ ${IO_OPTIONS} --metadata_file ${OBS_CONFIG} --verbose
+${RX15DAY_OBS} : ${SHAPEFILE} ${OBS_CONFIG}
+	papermill -p shapefile $< -p metadata_file $(word 2,$^) -p rx15day_file $@ -p region_name ${REGION_NAME} AGCD.ipynb AGCD_${REGION_NAME}.ipynb	
 
 ## rx15day-forecast : calculate Rx15day in forecast ensemble
 rx15day-forecast : ${RX15DAY_FCST}
