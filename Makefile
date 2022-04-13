@@ -33,7 +33,7 @@ ${RX15DAY_FCST} : ${FCST_DATA}
 
 ## independence-test : independence test for different lead times
 independence-test : ${INDEPENDENCE_PLOT}
-${INDEPENDENCE_PLOT} : ${RX3DAY_FCST}
+${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 	independence $< ${VAR} $@
 
 ## bias-correction : bias corrected forecast data using observations
