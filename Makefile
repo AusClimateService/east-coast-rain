@@ -52,9 +52,9 @@ ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 	similarity $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
 
 ## analysis : do the final analysis
-analysis : analysis/analysis_${MODEL}.ipynb
-analysis/analysis_${MODEL}.ipynb : analysis/analysis.ipynb ${OBS_NC_DATA} ${FCST_ENSEMBLE_FILE} ${FCST_BIAS_FILE} ${SIMILARITY_BIAS_FILE} ${SIMILARITY_RAW_FILE} ${INDEPENDENCE_PLOT}
-	papermill -p bom_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} $< $@
+analysis : analysis_${MODEL}.ipynb
+analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT}
+	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} $< $@
 
 ## help : show this message
 help :
