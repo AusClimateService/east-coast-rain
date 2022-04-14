@@ -43,7 +43,7 @@ ${RX15DAY_FCST_BIAS_CORRECTED} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 
 ## similarity-test-bias : similarity test between observations and bias corrected forecast
 similarity-test-bias : ${SIMILARITY_BIAS}
-${SIMILARITY_BIAS} : ${RX3DAY_FCST_BIAS_CORRECTED} ${RX15DAY_OBS}
+${SIMILARITY_BIAS} : ${RX15DAY_FCST_BIAS_CORRECTED} ${RX15DAY_OBS}
 	similarity $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
 
 ## similarity-test-raw : similarity test between observations and raw forecast
