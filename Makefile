@@ -53,8 +53,8 @@ ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 
 ## analysis : do the final analysis
 analysis : analysis_${MODEL}.ipynb
-analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT}
-	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} $< $@
+analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA}
+	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 8,$^) $< $@
 
 ## help : show this message
 help :
