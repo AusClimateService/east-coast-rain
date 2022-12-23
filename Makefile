@@ -30,7 +30,7 @@ ${RX15DAY_OBS} : ${SHAPEFILE} ${OBS_CONFIG}
 ## rx15day-forecast : calculate Rx15day in forecast ensemble
 rx15day-forecast : ${RX15DAY_FCST}
 ${RX15DAY_FCST} : ${FCST_DATA}
-	fileio $< $@ --forecast ${IO_OPTIONS} ${MODEL_IO_OPTIONS} --units pr='mm day-1' --units_timing middle --reset_times --complete_time_agg_periods --output_chunks lead_time=50 --dask_config ${DASK_CONFIG} --verbose
+	fileio $< $@ --forecast ${IO_OPTIONS} ${MODEL_IO_OPTIONS} --units pr='mm day-1' --units_timing middle --reset_times --complete_time_agg_periods --output_chunks lead_time=50 --dask_config ${DASK_CONFIG} --verbose --time_agg_dates
 
 ## independence-test : independence test for different lead times
 independence-test : ${INDEPENDENCE_PLOT}
