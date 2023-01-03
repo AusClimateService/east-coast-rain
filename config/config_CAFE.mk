@@ -1,7 +1,7 @@
 
 MODEL=CAFE
 EXPERIMENT=c5-d60-pX-f6
-MODEL_IO_OPTIONS=--metadata_file /home/599/dbi599/forks/unseen/config/dataset_cafe_daily.yml
+MODEL_IO_OPTIONS=--metadata_file /home/599/dbi599/unseen/config/dataset_cafe_daily.yml
 MIN_LEAD=1
 BASE_PERIOD=1995-01-01 2020-12-31
 BASE_PERIOD_TEXT=1995-2020
