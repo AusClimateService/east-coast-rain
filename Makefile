@@ -12,7 +12,7 @@ BIAS_METHOD=multiplicative
 DASK_CONFIG=dask_local.yml
 
 RX15DAY_OPTIONS_FCST=--spatial_coords -40 -20 140 160 --shp_overlap 0.1 --output_chunks lead_time=50
-RX15DAY_OPTIONS=--variables ${VAR} --spatial_agg weighted_mean --rolling_sum_window 15 --shapefile ${SHAPEFILE} --time_freq A-AUG --time_agg max --input_freq D --units_timing middle --reset_times --complete_time_agg_periods --dask_config ${DASK_CONFIG} --verbose --time_agg_dates
+RX15DAY_OPTIONS=--variables ${VAR} --spatial_agg weighted_mean --rolling_sum_window 15 --shapefile ${SHAPEFILE} --time_freq A-AUG --time_agg max --input_freq D --units_timing middle --reset_times --complete_time_agg_periods --dask_config ${DASK_CONFIG} --verbose --time_agg_dates --units pr='mm day-1'
 OBS_CONFIG=/home/599/dbi599/unseen/config/dataset_agcd_daily.yml
 RX15DAY_OBS=${PROJECT_DIR}/data/Rx15day_AGCD-CSIRO_r005_1900-2022_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 NINO_FILE=/home/599/dbi599/east-coast-rain/nino34.txt
