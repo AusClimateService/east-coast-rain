@@ -11,12 +11,14 @@ VAR=pr
 BIAS_METHOD=multiplicative
 DASK_CONFIG=dask_local.yml
 
-RX15DAY_OPTIONS_FCST=--spatial_coords -40 -20 140 160 --shp_overlap 0.1 --output_chunks lead_time=50
+RX15DAY_OPTIONS_FCST=--lat_bnds -40 -20 --lon_bnds 140 160 --shp_overlap 0.1 --output_chunks lead_time=50
 RX15DAY_OPTIONS=--variables ${VAR} --spatial_agg weighted_mean --rolling_sum_window 15 --shapefile ${SHAPEFILE} --time_freq A-AUG --time_agg max --input_freq D --units_timing middle --reset_times --complete_time_agg_periods --dask_config ${DASK_CONFIG} --verbose --time_agg_dates --units pr='mm day-1'
 OBS_CONFIG=/home/599/dbi599/unseen/config/dataset_agcd_daily.yml
 RX15DAY_OBS=${PROJECT_DIR}/data/Rx15day_AGCD-CSIRO_r005_1900-2022_annual-aug-to-sep_${REGION_NAME}.zarr.zip
-NINO_FILE=/home/599/dbi599/east-coast-rain/nino34.txt
+NINO_OBS_FILE=/home/599/dbi599/east-coast-rain/nino34.txt
+NINO_FCST=${PROJECT_DIR}/data/nino34-anomaly_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_base-${BASE_PERIOD_TEXT}.zarr.zip
 FCST_DATA=file_lists/${MODEL}_${EXPERIMENT}_files.txt
+FCST_TOS_DATA=file_lists/${MODEL}_${EXPERIMENT}_ocean_files.txt
 OBS_DATA := $(sort $(wildcard /g/data/xv83/agcd-csiro/precip/daily/precip-total_AGCD-CSIRO_r005_*_daily.nc))
 RX15DAY_FCST=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 INDEPENDENCE_PLOT=${PROJECT_DIR}/figures/independence-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
@@ -33,7 +35,7 @@ ${RX15DAY_OBS} :
 ## rx15day-obs-analysis : analyse Rx15day in observations
 rx15day-obs-analysis : AGCD_${REGION_NAME}.ipynb
 AGCD_${REGION_NAME}.ipynb : AGCD.ipynb ${RX15DAY_OBS}
-	papermill -p rx15day_file $(word 2,$^) -p region_name ${REGION_NAME} -p nino_file ${NINO_FILE} $< $@	
+	papermill -p rx15day_file $(word 2,$^) -p region_name ${REGION_NAME} -p nino_file ${NINO_OBS_FILE} $< $@	
 
 ## rx15day-forecast : calculate Rx15day in forecast ensemble
 rx15day-forecast : ${RX15DAY_FCST}
@@ -60,10 +62,15 @@ similarity-test-raw : ${SIMILARITY_RAW}
 ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 	similarity $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
 
+## nino34-forecast
+nino34-forecast : ${NINO_FCST}
+${NINO_FCST} : ${FCST_TOS_DATA}
+	 fileio $< $@ --forecast --variables tos --spatial_agg mean --lat_bnds -5 5 --verbose ${MODEL_NINO_OPTIONS}
+
 ## rx15day-forecast-analysis : analysis of rx15day from forecast data
 rx15day-forecast-analysis : analysis_${MODEL}.ipynb
-analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA}
-	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 8,$^) $< $@
+analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA} ${NINO_FCST}
+	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 8,$^) -p nino_file $(word 9,$^) $< $@
 
 ## help : show this message
 help :
