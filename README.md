@@ -39,7 +39,7 @@ so a longer timescale for the analysis might also be appropriate.
 | ---             | ---      | ---       | ---         | --        | --        |
 | BCC-CSM2-MR     | :grey_question: |  | :grey_question: | :x: | :x: |
 | CMCC-CM2-SR5    | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
-| CanESM5         | :grey_question: |  | :grey_question: |  |  |
+| CanESM5         | :black_square_button: |  | :grey_question: |  |  |
 | EC-Earth3       | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
 | EC-Earth3-CC    | :grey_question: |  | :grey_question: | :x: | :x: |
 | EC-Earth3-HR    | :grey_question: |  | :grey_question: | :x: | :x: |
