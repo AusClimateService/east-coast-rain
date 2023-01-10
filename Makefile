@@ -15,8 +15,9 @@ RX15DAY_OPTIONS_FCST=--lat_bnds -40 -20 --lon_bnds 140 160 --shp_overlap 0.1 --o
 RX15DAY_OPTIONS=--variables ${VAR} --spatial_agg weighted_mean --rolling_sum_window 15 --shapefile ${SHAPEFILE} --time_freq A-AUG --time_agg max --input_freq D --units_timing middle --reset_times --complete_time_agg_periods --dask_config ${DASK_CONFIG} --verbose --time_agg_dates --units pr='mm day-1'
 OBS_CONFIG=/home/599/dbi599/unseen/config/dataset_agcd_daily.yml
 RX15DAY_OBS=${PROJECT_DIR}/data/Rx15day_AGCD-CSIRO_r005_1900-2022_annual-aug-to-sep_${REGION_NAME}.zarr.zip
-NINO_OBS_FILE=/home/599/dbi599/east-coast-rain/nino34.txt
+SST_OBS=/g/data/ia39/aus-ref-clim-data-nci/hadisst/data/HadISST_sst.nc
 NINO_FCST=${PROJECT_DIR}/data/nino34-anomaly_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_base-${BASE_PERIOD_TEXT}.zarr.zip
+NINO_OBS=${PROJECT_DIR}/data/nino34-anomaly_HadISST_1870-2022_base-1981-2010.nc
 FCST_DATA=file_lists/${MODEL}_${EXPERIMENT}_files.txt
 FCST_TOS_DATA=file_lists/${MODEL}_${EXPERIMENT}_ocean_files.txt
 OBS_DATA := $(sort $(wildcard /g/data/xv83/agcd-csiro/precip/daily/precip-total_AGCD-CSIRO_r005_*_daily.nc))
@@ -32,10 +33,15 @@ rx15day-obs : ${RX15DAY_OBS}
 ${RX15DAY_OBS} :
 	fileio ${OBS_DATA} $@ ${RX15DAY_OPTIONS} --metadata_file /home/599/dbi599/unseen/config/dataset_agcd_daily.yml
 
+## nino34-obs : calculate Nino 3.4 in observations
+nino34-obs : ${NINO_OBS}
+${NINO_OBS} :
+	 fileio ${SST_OBS} $@ --variables sst --spatial_agg mean --lat_bnds -5 5 --lon_bnds -170 -120 --lat_dim latitude --lon_dim longitude --anomaly 1980-01-01 2009-12-31 --anomaly_freq month --verbose
+
 ## rx15day-obs-analysis : analyse Rx15day in observations
 rx15day-obs-analysis : AGCD_${REGION_NAME}.ipynb
-AGCD_${REGION_NAME}.ipynb : AGCD.ipynb ${RX15DAY_OBS}
-	papermill -p rx15day_file $(word 2,$^) -p region_name ${REGION_NAME} -p nino_file ${NINO_OBS_FILE} $< $@	
+AGCD_${REGION_NAME}.ipynb : AGCD.ipynb ${RX15DAY_OBS} ${NINO_OBS}
+	papermill -p rx15day_file $(word 2,$^) -p region_name ${REGION_NAME} -p nino_file $(word 3,$^) $< $@	
 
 ## rx15day-forecast : calculate Rx15day in forecast ensemble
 rx15day-forecast : ${RX15DAY_FCST}
@@ -62,7 +68,7 @@ similarity-test-raw : ${SIMILARITY_RAW}
 ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 	similarity $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
 
-## nino34-forecast
+## nino34-forecast : calculate Nino 3.4 in forecast ensemble
 nino34-forecast : ${NINO_FCST}
 ${NINO_FCST} : ${FCST_TOS_DATA}
 	 fileio $< $@ --forecast --variables tos --spatial_agg mean --lat_bnds -5 5 --verbose ${MODEL_NINO_OPTIONS}
