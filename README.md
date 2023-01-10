@@ -45,7 +45,7 @@ so a longer timescale for the analysis might also be appropriate.
 | EC-Earth3-HR    | :grey_question: |  | :grey_question: | :x: | :x: |
 | HadGEM3-GC31-MM | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
 | IPSL-CM6A-LR    | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :black_square_button: |
-| MIROC6          | :grey_question: |  | :grey_question: |  |  |
+| MIROC6          | :black_square_button: |  | :grey_question: |  |  |
 | MPI-ESM1-2-HR   | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
 | MRI-ESM2-0      | :grey_question: |  | :grey_question: | :x: | :x: |
 | NorCPM1         | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
