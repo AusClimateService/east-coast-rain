@@ -37,12 +37,12 @@ so a longer timescale for the analysis might also be appropriate.
 
 | Model           | daily pr | daily psl | monthly tos |  daily zg |  daily ua |
 | ---             | ---      | ---       | ---         | --        | --        |
-| BCC-CSM2-MR     | :black_square_button: |  | :grey_question: | :x: | :x: |
-| CMCC-CM2-SR5    | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
-| CanESM5         | :black_square_button: |  | :grey_question: |  |  |
-| EC-Earth3       | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
-| EC-Earth3-CC    | :black_square_button: (small) |  | :grey_question: | :x: | :x: |
-| EC-Earth3-HR    | :black_square_button: (small) |  | :grey_question: | :x: | :x: |
+| BCC-CSM2-MR     | :black_square_button: |  | :x: | :x: | :x: |
+| CMCC-CM2-SR5    | :white_check_mark: | :black_square_button: | :black_square_button: | :x: | :x: |
+| CanESM5         | :black_square_button: |  | :x: |  |  |
+| EC-Earth3       | :white_check_mark: | :black_square_button: | lots | :x: | :x: |
+| EC-Earth3-CC    | :black_square_button: (small) |  | :black_square_button: | :x: | :x: |
+| EC-Earth3-HR    | :black_square_button: (small) |  | :black_square_button: | :x: | :x: |
 | HadGEM3-GC31-MM | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :x: |
 | IPSL-CM6A-LR    | :white_check_mark: | :black_square_button: | :grey_question: | :x: | :black_square_button: |
 | MIROC6          | :black_square_button: |  | :grey_question: |  |  |
