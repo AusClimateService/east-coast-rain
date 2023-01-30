@@ -71,7 +71,7 @@ ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 ## nino34-forecast : calculate Nino 3.4 in forecast ensemble
 nino34-forecast : ${NINO_FCST}
 ${NINO_FCST} : ${FCST_TOS_DATA}
-	 fileio $< $@ --forecast --variables tos --spatial_agg mean --lat_bnds -5 5 --verbose ${MODEL_NINO_OPTIONS}
+	 fileio $< $@ --forecast --variables tos --spatial_agg mean --lat_bnds -5 5 --verbose ${MODEL_NINO_OPTIONS} 
 
 ## rx15day-forecast-analysis : analysis of rx15day from forecast data
 rx15day-forecast-analysis : analysis_${MODEL}.ipynb
