@@ -47,5 +47,5 @@ so a longer timescale for the analysis might also be appropriate.
 | IPSL-CM6A-LR    | :white_check_mark: | :black_square_button: | :white_check_mark: | :x: | :black_square_button: |
 | MIROC6          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | MPI-ESM1-2-HR   | :white_check_mark: | :black_square_button: | :grey_question: (only 5 of 10 runs) | :x: | :x: |
-| MRI-ESM2-0      | :black_square_button: | :black_square_button: | :white_check_mark: | :x: | :x: |
+| MRI-ESM2-0      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
 | NorCPM1         | :white_check_mark: | :black_square_button: | :grey_question: (1 missing) | :x: | :x: |
