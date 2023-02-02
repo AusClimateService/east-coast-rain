@@ -1,17 +1,18 @@
-"""Create CanESM5 DCPP file list."""
+"""Create CanESM5 DCPP file lists"""
 
 import glob
 import os
 
 import numpy as np
 
+
 file_dir = '/g/data/oi10/replicas/CMIP6/DCPP/CCCma/CanESM5/dcppA-hindcast'
-pr_file = 'CanESM5_dcppA-hindcast_files.txt'
+pr_file = 'CanESM5_dcppA-hindcast_pr_files.txt'
 try:
     os.remove(pr_file)
 except OSError:
     pass
-tos_file = 'CanESM5_dcppA-hindcast_ocean_files.txt'
+tos_file = 'CanESM5_dcppA-hindcast_tos_files.txt'
 try:
     os.remove(tos_file)
 except OSError:
@@ -27,7 +28,6 @@ for year in np.arange(1960, 2016 + 1):
     with open(pr_file, 'a') as outfile:
         for item in infiles:
             outfile.write(f"{item}\n")
-
 
 for year in np.arange(1960, 2016 + 1):
     infiles1 = glob.glob(f'{file_dir}/s{year}-r?i1p2f1/Omon/tos/gn/*/*.nc')
