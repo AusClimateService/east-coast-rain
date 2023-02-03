@@ -44,7 +44,7 @@ so a longer timescale for the analysis might also be appropriate.
 | EC-Earth3-CC    | :black_square_button: (small) | :black_square_button: | :black_square_button: | :x: | :x: |
 | EC-Earth3-HR    | :black_square_button: (small) | :black_square_button: | :black_square_button: | :x: | :x: |
 | HadGEM3-GC31-MM | :white_check_mark: | :black_square_button: | :white_check_mark: | :x: | :x: |
-| IPSL-CM6A-LR    | :white_check_mark: | :black_square_button: | :white_check_mark: | :x: | :black_square_button: |
+| IPSL-CM6A-LR    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: |
 | MIROC6          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | MPI-ESM1-2-HR   | :white_check_mark: | :black_square_button: | :grey_question: (only 5 of 10 runs) | :x: | :x: |
 | MRI-ESM2-0      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
