@@ -8,7 +8,7 @@ include ${REGION_CONFIG}
 
 PROJECT_DIR=/g/data/xv83/dbi599/east-coast-rain
 VAR=pr
-BIAS_METHOD=multiplicative
+BIAS_METHOD=additive
 DASK_CONFIG=dask_local.yml
 
 RX15DAY_OPTIONS_FCST=--lat_bnds -40 -20 --lon_bnds 140 160 --shp_overlap 0.1 --output_chunks lead_time=50
@@ -16,7 +16,7 @@ RX15DAY_OPTIONS=--variables ${VAR} --spatial_agg weighted_mean --rolling_sum_win
 OBS_CONFIG=/home/599/dbi599/unseen/config/dataset_agcd_daily.yml
 RX15DAY_OBS=${PROJECT_DIR}/data/Rx15day_AGCD-CSIRO_r005_1900-2022_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 SST_OBS=/g/data/ia39/aus-ref-clim-data-nci/hadisst/data/HadISST_sst.nc
-NINO_FCST=${PROJECT_DIR}/data/nino34-anomaly_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_base-${BASE_PERIOD_TEXT}.zarr.zip
+NINO_FCST=${PROJECT_DIR}/data/nino34-anomaly_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_base-${BASE_PERIOD_TEXT}.nc
 NINO_OBS=${PROJECT_DIR}/data/nino34-anomaly_HadISST_1870-2022_base-1981-2010.nc
 FCST_DATA=file_lists/${MODEL}_${EXPERIMENT}_pr_files.txt
 FCST_TOS_DATA=file_lists/${MODEL}_${EXPERIMENT}_tos_files.txt
@@ -74,8 +74,8 @@ ${NINO_FCST} : ${FCST_TOS_DATA}
 	 fileio $< $@ --forecast --variables tos --spatial_agg mean --lat_bnds -5 5 --verbose ${MODEL_NINO_OPTIONS} 
 
 ## rx15day-forecast-analysis : analysis of rx15day from forecast data
-rx15day-forecast-analysis : analysis_${MODEL}.ipynb
-analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA} ${NINO_FCST}
+rx15day-forecast-analysis : analysis_${MODEL}_${BIAS_METHOD}.ipynb
+analysis_${MODEL}_${BIAS_METHOD}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA} ${NINO_FCST}
 	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 8,$^) -p nino_file $(word 9,$^) $< $@
 
 ## help : show this message
