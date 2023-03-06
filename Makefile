@@ -2,13 +2,12 @@
 
 include ${MODEL_CONFIG}
 #Model config file needs to define MODEL, MODEL_IO_OPTIONS (optional) MIN_LEAD,
-#BIAS_METHOD, BASE_PERIOD, BASE_PERIOD_TEXT and TIME_PERIOD_TEXT
+#BASE_PERIOD, BASE_PERIOD_TEXT and TIME_PERIOD_TEXT
 include ${REGION_CONFIG}
 #Region config file nees to define SHAPEFILE and REGION_NAME
 
 PROJECT_DIR=/g/data/xv83/dbi599/east-coast-rain
 VAR=pr
-BIAS_METHOD=additive
 DASK_CONFIG=dask_local.yml
 
 RX15DAY_OPTIONS_FCST=--lat_bnds -40 -20 --lon_bnds 140 160 --shp_overlap 0.1 --output_chunks lead_time=50
@@ -18,13 +17,15 @@ RX15DAY_OBS=${PROJECT_DIR}/data/Rx15day_AGCD-CSIRO_r005_1900-2022_annual-aug-to-
 SST_OBS=/g/data/ia39/aus-ref-clim-data-nci/hadisst/data/HadISST_sst.nc
 NINO_FCST=${PROJECT_DIR}/data/nino34-anomaly_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_base-${BASE_PERIOD_TEXT}.nc
 NINO_OBS=${PROJECT_DIR}/data/nino34-anomaly_HadISST_1870-2022_base-1981-2010.nc
-FCST_DATA=file_lists/${MODEL}_${EXPERIMENT}_pr_files.txt
+FCST_DATA=/home/599/dbi599/east-coast-rain/file_lists/${MODEL}_${EXPERIMENT}_pr_files.txt
 FCST_TOS_DATA=file_lists/${MODEL}_${EXPERIMENT}_tos_files.txt
 OBS_DATA := $(sort $(wildcard /g/data/xv83/agcd-csiro/precip/daily/precip-total_AGCD-CSIRO_r005_*_daily.nc))
 RX15DAY_FCST=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 INDEPENDENCE_PLOT=${PROJECT_DIR}/figures/independence-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
-RX15DAY_FCST_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-${BIAS_METHOD}.zarr.zip
-SIMILARITY_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-${BIAS_METHOD}.zarr.zip
+RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
+RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.zarr.zip
+SIMILARITY_ADDITIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
+SIMILARITY_MULTIPLICATIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.zarr.zip
 SIMILARITY_RAW=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_AGCD-CSIRO.zarr.zip
 
 
@@ -53,14 +54,24 @@ independence-test : ${INDEPENDENCE_PLOT}
 ${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 	independence $< ${VAR} $@
 
-## bias-correction : bias corrected forecast data using observations
-bias-correction : ${RX15DAY_FCST_BIAS_CORRECTED}
-${RX15DAY_FCST_BIAS_CORRECTED} : ${RX15DAY_FCST} ${RX15DAY_OBS}
-	bias_correction $< $(word 2,$^) ${VAR} ${BIAS_METHOD} $@ --base_period ${BASE_PERIOD} --rounding_freq A --min_lead ${MIN_LEAD}
+## bias-correction-additive : additive bias corrected forecast data using observations
+bias-correction : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED}
+${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} : ${RX15DAY_FCST} ${RX15DAY_OBS}
+	bias_correction $< $(word 2,$^) ${VAR} additive $@ --base_period ${BASE_PERIOD} --rounding_freq A --min_lead ${MIN_LEAD}
 
-## similarity-test-bias : similarity test between observations and bias corrected forecast
-similarity-test-bias : ${SIMILARITY_BIAS}
-${SIMILARITY_BIAS} : ${RX15DAY_FCST_BIAS_CORRECTED} ${RX15DAY_OBS}
+## bias-correction-multiplicative : multiplicative bias corrected forecast data using observations
+bias-correction : ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED}
+${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} : ${RX15DAY_FCST} ${RX15DAY_OBS}
+	bias_correction $< $(word 2,$^) ${VAR} multiplicative $@ --base_period ${BASE_PERIOD} --rounding_freq A --min_lead ${MIN_LEAD}
+
+## similarity-test-additive-bias : similarity test between observations and additive bias corrected forecast
+similarity-test-additive-bias : ${SIMILARITY_ADDITIVE_BIAS}
+${SIMILARITY_ADDITIVE_BIAS} : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
+	similarity $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
+
+## similarity-test-multiplicative-bias : similarity test between observations and multiplicative bias corrected forecast
+similarity-test-multiplicative-bias : ${SIMILARITY_MULTIPLICATIVE_BIAS}
+${SIMILARITY_MULTIPLICATIVE_BIAS} : ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
 	similarity $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
 
 ## similarity-test-raw : similarity test between observations and raw forecast
@@ -74,9 +85,9 @@ ${NINO_FCST} : ${FCST_TOS_DATA}
 	 fileio $< $@ --forecast --variables tos --spatial_agg mean --lat_bnds -5 5 --verbose ${MODEL_NINO_OPTIONS} 
 
 ## rx15day-forecast-analysis : analysis of rx15day from forecast data
-rx15day-forecast-analysis : analysis_${MODEL}_${BIAS_METHOD}.ipynb
-analysis_${MODEL}_${BIAS_METHOD}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_BIAS_CORRECTED} ${SIMILARITY_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA} ${NINO_FCST}
-	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_bc_file $(word 4,$^) -p similarity_bc_file $(word 5,$^) -p similarity_raw_file $(word 6,$^) -p independence_plot $(word 7,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 8,$^) -p nino_file $(word 9,$^) $< $@
+rx15day-forecast-analysis : analysis_${MODEL}.ipynb
+analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${SIMILARITY_ADDITIVE_BIAS} ${SIMILARITY_MULTIPLICATIVE_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA} ${NINO_FCST}
+	papermill -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_add_bc_file $(word 4,$^) -p model_mulc_bc_file $(word 5,$^) -p similarity_add_bc_file $(word 6,$^) -p similarity_mulc_bc_file $(word 7,$^) -p similarity_raw_file $(word 8,$^) -p independence_plot $(word 9,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 10,$^) -p nino_file $(word 11,$^) $< $@
 
 ## help : show this message
 help :
