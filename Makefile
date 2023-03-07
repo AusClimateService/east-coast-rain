@@ -18,7 +18,7 @@ SST_OBS=/g/data/ia39/aus-ref-clim-data-nci/hadisst/data/HadISST_sst.nc
 NINO_FCST=${PROJECT_DIR}/data/nino34-anomaly_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_base-${BASE_PERIOD_TEXT}.nc
 NINO_OBS=${PROJECT_DIR}/data/nino34-anomaly_HadISST_1870-2022_base-1981-2010.nc
 FCST_DATA=/home/599/dbi599/east-coast-rain/file_lists/${MODEL}_${EXPERIMENT}_pr_files.txt
-FCST_TOS_DATA=file_lists/${MODEL}_${EXPERIMENT}_tos_files.txt
+FCST_TOS_DATA=/home/599/dbi599/east-coast-rain/file_lists/${MODEL}_${EXPERIMENT}_tos_files.txt
 OBS_DATA := $(sort $(wildcard /g/data/xv83/agcd-csiro/precip/daily/precip-total_AGCD-CSIRO_r005_*_daily.nc))
 RX15DAY_FCST=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 INDEPENDENCE_PLOT=${PROJECT_DIR}/figures/independence-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
@@ -28,11 +28,11 @@ SIMILARITY_ADDITIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${
 SIMILARITY_MULTIPLICATIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.zarr.zip
 SIMILARITY_RAW=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_AGCD-CSIRO.zarr.zip
 
-FILEIO=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/fileio
+FILEIO=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/fileio
 PAPERMILL=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/papermill
-INDEPENDENCE=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/independence
-BIAS_CORRECTION=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/bias_correction
-SIMILARITY=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/similarity
+INDEPENDENCE=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/independence
+BIAS_CORRECTION=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/bias_correction
+SIMILARITY=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/similarity
 
 
 ## rx15day-obs : calculate Rx15day in observations
