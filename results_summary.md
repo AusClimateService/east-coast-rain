@@ -1,5 +1,33 @@
 ## Overview
 
+### Context
+
+In the observational (AGCD) record,
+the unprecedented 2022 RX15day value of 410mm has a return period of 297 years
+(calculated from a GEV fit to 122 annual values).
+There is a strong tendency for RX15day events to occur in February and March
+(with the least likely months being Jul-Sep),
+and large RX15day values have exclusively occurred in La Nina or ENSO neutral months
+(i.e. never during El Nino).
+
+### Model summary
+
+| Model           | Resolution* | Sample size | mslp | z500 | u300 | Seasonality | ENSO | RP raw | RP add | RP mulc |
+| ---             | ---         | ---         | ---  | ---  | ---  | ---         | ---  | ---    | ---    | ---     |
+| CAFE            | 11 | 34,944 | :white_check_mark: | :question: | :x: | :white_check_mark: | :question: | Fail | 49,834 | 1,114 |
+| CanESM5         | 6 | 10,260 | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
+| CMCC-CM2-SR5    | 24 | 3,600 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | 6,949 | 5,147 | 2,813 |
+| EC-Earth3       | | | | | | | | | | |
+| HadGEM3-GC31-MM | 53 | 5,310 | :question: | N/A | N/A | :white_check_mark: | :x: |
+| IPSL-CM6A-LR    | ? | 5,130 | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: |
+| MIROC6          | 18 | 5,310 | :question: | :x: | :question: | :white_check_mark: :question: | :x: |
+| MPI-ESM1-2-HR   | 31 | 5,310 | :white_check_mark: | N/A | N/A | :white_check_mark: | N/A |
+| MRI-ESM2-0      | 25 | 2,400 | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: |
+| NorCPM1         | 9 | 9,440 | :question: | N/A | N/A | :white_check_mark: | TODO |
+
+*Resolution is the number of grid boxes in the target east coast region  
+RP = return period (in years); fail means the KS and Anderson Darling tests failed
+
 ## Individual models
 
 ### CAFE
