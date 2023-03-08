@@ -18,15 +18,17 @@ and large RX15day values have exclusively occurred in La Nina or ENSO neutral mo
 | CanESM5         | 6 | 10,260 | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
 | CMCC-CM2-SR5    | 24 | 3,600 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | 6,949 | 5,147 | 2,813 |
 | EC-Earth3       | | | | | | | | | | |
-| HadGEM3-GC31-MM | 53 | 5,310 | :question: | N/A | N/A | :white_check_mark: | :x: |
-| IPSL-CM6A-LR    | ? | 5,130 | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: |
-| MIROC6          | 18 | 5,310 | :question: | :x: | :question: | :white_check_mark: :question: | :x: |
-| MPI-ESM1-2-HR   | 31 | 5,310 | :white_check_mark: | N/A | N/A | :white_check_mark: | N/A |
-| MRI-ESM2-0      | 25 | 2,400 | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: |
-| NorCPM1         | 9 | 9,440 | :question: | N/A | N/A | :white_check_mark: | TODO |
+| HadGEM3-GC31-MM | 53 | 5,310 | :question: | N/A | N/A | :white_check_mark: | :x: | Fail | 2,995 | 441 |
+| IPSL-CM6A-LR    | ? | 5,130 | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: | Fail | 12,666 | 3,324 |
+| MIROC6          | 18 | 5,310 | :question: | :x: | :question: | :white_check_mark: :question: | :x: | PFail | PFail | 2,663 |
+| MPI-ESM1-2-HR   | 31 | 5,310 | :white_check_mark: | N/A | N/A | :white_check_mark: | N/A | Fail | Fail | 241 |
+| MRI-ESM2-0      | 25 | 2,400 | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: | Fail | Fail | 1,814 |
+| NorCPM1         | 9 | 9,440 | :question: | N/A | N/A | :white_check_mark: | TODO | Fail | Fail | Fail |
 
 *Resolution is the number of grid boxes in the target east coast region  
-RP = return period (in years); fail means the KS and Anderson Darling tests failed
+RP = return period (in years) determined from a GEV fit;
+fail means the KS and Anderson Darling tests failed
+(pfail means some but not all lead times failed)
 
 ## Individual models
 
@@ -116,8 +118,8 @@ TODO
   - z500: N/A
   - u300: N/A
 - Return period:
-  - Raw empirical: 0 in 3600 = inf
-  - Raw GEV: 6,949 years
+  - Raw empirical: N/A
+  - Raw GEV: N/A
   - Add empirical: 1 in 5,310 = 5310 years
   - Add GEV: 2,995 years
   - Mulc empirical: 1 in 5,310 = 5310 years
@@ -139,8 +141,8 @@ TODO
   - z500: N/A
   - u300: can get a split jet :white_check_mark: or :question:
 - Return period:
-  - Raw empirical: 0 in 5130 = inf
-  - Raw GEV: 29,397 years
+  - Raw empirical: N/A
+  - Raw GEV: N/A
   - Add empirical: 0 in 5130 = inf
   - Add GEV: 12,666 years
   - Mulc empirical: 0 in 5130 = inf
