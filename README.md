@@ -38,14 +38,14 @@ so a longer timescale for the analysis might also be appropriate.
 | Model           | daily pr | daily psl | monthly tos |  daily zg |  daily ua |
 | ---             | ---      | ---       | ---         | --        | --        |
 | BCC-CSM2-MR     | :black_square_button: | :black_square_button:  | :x: | :x: | :x: |
-| CMCC-CM2-SR5    | :white_check_mark: | :black_square_button: | :white_check_mark: | :x: | :x: |
+| CMCC-CM2-SR5    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
 | CanESM5         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| EC-Earth3       | :white_check_mark: | :black_square_button: | :white_check_mark: | :x: | :x: |
+| EC-Earth3       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
 | EC-Earth3-CC    | :black_square_button: (small) | :black_square_button: | :black_square_button: | :x: | :x: |
 | EC-Earth3-HR    | :black_square_button: (small) | :black_square_button: | :black_square_button: | :x: | :x: |
-| HadGEM3-GC31-MM | :white_check_mark: | :black_square_button: | :white_check_mark: | :x: | :x: |
+| HadGEM3-GC31-MM | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
 | IPSL-CM6A-LR    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: |
 | MIROC6          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| MPI-ESM1-2-HR   | :white_check_mark: | :black_square_button: | :grey_question: (only 5 of 10 runs) | :x: | :x: |
+| MPI-ESM1-2-HR   | :white_check_mark: | :white_check_mark: | :grey_question: (only 5 of 10 runs) | :x: | :x: |
 | MRI-ESM2-0      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
-| NorCPM1         | :white_check_mark: | :black_square_button: | :grey_question: (1 missing) | :x: | :x: |
+| NorCPM1         | :white_check_mark: | :white_check_mark: | :grey_question: (1 missing) | :x: | :x: |
