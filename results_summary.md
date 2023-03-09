@@ -17,7 +17,7 @@ and large RX15day values have exclusively occurred in La Nina or ENSO neutral mo
 | [CAFE](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CAFE.ipynb) | 11 | 34,944 | :white_check_mark: | :question: | :x: | :white_check_mark: | :question: | Fail | 49,834 | 1,114 |
 | [CanESM5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CanESM5.ipynb) | 6 | 10,260 | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
 | [CMCC-CM2-SR5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CMCC-CM2-SR5.ipynb) | 24 | 3,600 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | 6,949 | 5,147 | 2,813 |
-| [EC-Earth3](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_EC-Earth3.ipynb)       | | | | | | | | | | |
+| [EC-Earth3](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_EC-Earth3.ipynb) | 51 | 7,830 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | Fail | 5,798 | 816 |
 | [HadGEM3-GC31-MM](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_HadGEM3-GC31-MM.ipynb) | 53 | 5,310 | :question: | N/A | N/A | :white_check_mark: | :x: | Fail | 2,995 | 441 |
 | [IPSL-CM6A-LR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_IPSL-CM6A-LR.ipynb) | ? | 5,130 | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: | Fail | 12,666 | 3,324 |
 | [MIROC6](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MIROC6.ipynb) | 18 | 5,310 | :question: | :x: | :question: | :white_check_mark: :question: | :x: | PFail | PFail | 2,663 |
@@ -103,7 +103,27 @@ fail means the KS and Anderson Darling tests failed
 
 ### EC-Earth3
 
-TODO
+- Resolution: very high (51 grid boxes)
+- Ensemble: 15 members, 58 initial dates (1960-2017), 9 lead times 
+- Independence: All lead times
+- Sample size: 7,830
+- Fidelity:
+  - Raw KS/AD: Fail
+  - Add KS/AD: Pass
+  - Mulc KS/AD: Pass
+  - mslp: gets high over NZ :white_check_mark:
+  - z500: N/A
+  - u300: N/A
+- Return period:
+  - Raw empirical: N/A
+  - Raw GEV: N/A
+  - Add empirical: 2 in 7,830 = 3,915 years
+  - Add GEV: 5,798 years
+  - Mulc empirical: 2 in 7,830 = 3,915 years
+  - Mulc GEV: 816 years
+- Stationary over decades
+- Seasonality: :white_check_mark:
+- ENSO: Strong relationship with La Nina :white_check_mark:
 
 ### HadGEM3-GC31-MM
 - Resolution: very high (53 grid boxes)
