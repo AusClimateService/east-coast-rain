@@ -14,17 +14,17 @@ and large RX15day values have exclusively occurred in La Nina or ENSO neutral mo
 
 | Model           | Res* | Sample size | shape | loc | scale | mslp | z500 | u300 | Seasonality | ENSO | RP raw | RP add | RP mulc |
 | ---             | ---         | ---         | ---   | --- | ---   | ---  | ---  | ---  | ---         | ---  | ---    | ---    | ---     |
-| [AGCD](https://github.com/AusClimateService/east-coast-rain/blob/master/AGCD_east-coast-flood-region.ipynb) | | 122 | -0.06 | 142.88 | 39.28 | | | | | | 297 | | | 
-| [CAFE](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CAFE.ipynb) | 11 | 34,944 | | | | :white_check_mark: | :question: | :x: | :white_check_mark: | :question: | Fail | 49,834 | 1,114 |
-| [CanESM5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CanESM5.ipynb) | 6 | 10,260 | | | | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
-| [CMCC-CM2-SR5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CMCC-CM2-SR5.ipynb) | 24 | 3,600 | | | | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | 6,949 | 5,147 | 2,813 |
-| [EC-Earth3](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_EC-Earth3.ipynb) | 51 | 7,830 | | | | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | Fail | 5,798 | 816 |
-| [HadGEM3-GC31-MM](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_HadGEM3-GC31-MM.ipynb) | 53 | 5,310 | | | | :question: | N/A | N/A | :white_check_mark: | :x: | Fail | 2,995 | 441 |
-| [IPSL-CM6A-LR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_IPSL-CM6A-LR.ipynb) | 12 | 5,130 | | | | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: | Fail | 12,666 | 3,324 |
-| [MIROC6](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MIROC6.ipynb) | 18 | 5,310 | | | | :question: | :x: | :question: | :white_check_mark: :question: | :x: | PFail | PFail | 2,663 |
-| [MPI-ESM1-2-HR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MPI-ESM1-2-HR.ipynb) | 31 | 5,310 | | | | :white_check_mark: | N/A | N/A | :white_check_mark: | N/A | Fail | Fail | 241 |
-| [MRI-ESM2-0](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MRI-ESM2-0.ipynb) | 25 | 2,400 | | | | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: | Fail | Fail | 1,814 |
-| [NorCPM1](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_NorCPM1.ipynb) | 9 | 9,440 | | | | :question: | N/A | N/A | :white_check_mark: | TODO | Fail | Fail | Fail |
+| [AGCD](https://github.com/AusClimateService/east-coast-rain/blob/master/AGCD_east-coast-flood-region.ipynb) | | 122 | -0.06 | 143 | 39.3 | | | | | | 297 | | | 
+| [CAFE](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CAFE.ipynb) | 11 | 34,944 | 0.029 | 98 | 27.5 | :white_check_mark: | :question: | :x: | :white_check_mark: | :question: | Fail | 49,834 | 1,114 |
+| [CanESM5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CanESM5.ipynb) | 6 | 10,260 | 0.07 | 117 | 36.9 | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
+| [CMCC-CM2-SR5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CMCC-CM2-SR5.ipynb) | 24 | 3,600 | 0.024 | 140 | 34.0 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | 6,949 | 5,147 | 2,813 |
+| [EC-Earth3](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_EC-Earth3.ipynb) | 51 | 7,830 | 0.043 | 122 | 37.7 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | Fail | 5,798 | 816 |
+| [HadGEM3-GC31-MM](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_HadGEM3-GC31-MM.ipynb) | 53 | 5,310 | 0.005 | 108 | 33.5 | :question: | N/A | N/A | :white_check_mark: | :x: | Fail | 2,995 | 441 |
+| [IPSL-CM6A-LR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_IPSL-CM6A-LR.ipynb) | 12 | 5,130 | 0.032 | 131 | 31.9 | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: | Fail | 12,666 | 3,324 |
+| [MIROC6](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MIROC6.ipynb) | 18 | 5,310 | 0.087 | 139 | 32.9 | :question: | :x: | :question: | :white_check_mark: :question: | :x: | PFail | PFail | 2,663 |
+| [MPI-ESM1-2-HR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MPI-ESM1-2-HR.ipynb) | 31 | 5,310 | 0.019 | 76.5 | 26.5 | :white_check_mark: | N/A | N/A | :white_check_mark: | N/A | Fail | Fail | 241 |
+| [MRI-ESM2-0](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MRI-ESM2-0.ipynb) | 25 | 2,400 | 0.044 | 93 | 25.8 | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: | Fail | Fail | 1,814 |
+| [NorCPM1](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_NorCPM1.ipynb) | 9 | 9,440 | 0.034 | 120 | 23.9 | :question: | N/A | N/A | :white_check_mark: | TODO | Fail | Fail | Fail |
 
 *Resolution is the number of grid boxes in the target east coast region  
 RP = return period (in years) determined from a GEV fit;
