@@ -30,6 +30,19 @@ RP = return period (in years) determined from a GEV fit;
 fail means the KS and Anderson Darling tests failed
 (pfail means some but not all lead times failed)
 
+### Results
+
+Comments on the UNSEEN methodology in general:
+- Different models can produce vastly different return period estimates
+- Different bias correction methods can produce vastly different return period estimates
+- Commonly used similarity tests tend to produce the same result in the sense that they tend to accept or reject the same models (pending implementation of the moments method)
+-  
+
+Comments on the east coast rainfall event:
+- Higher resolution models tended to have lower return period estimates
+- 
+
+
 ## Individual models
 
 ### CAFE
