@@ -2,13 +2,21 @@
 
 ### Context
 
+#### East Coast event
+
 In the observational (AGCD) record,
 the unprecedented 2022 RX15day value of 410mm has a return period of 297 years
-(calculated from a GEV fit to 122 annual values with a shape).
+(calculated from a GEV fit to 122 annual values).
 There is a strong tendency for RX15day events to occur in February and March
 (with the least likely months being Jul-Sep),
 and large RX15day values have exclusively occurred in La Nina or ENSO neutral months
 (i.e. never during El Nino).
+
+#### UNSEEN literature
+
+Nobody has done a multi-model UNSEEN analysis before.
+There is one paper that uses two different models,
+but they just lump all the data into one bucket (to increase the overall sample size).
 
 ### Model summary
 
@@ -19,33 +27,40 @@ and large RX15day values have exclusively occurred in La Nina or ENSO neutral mo
 | [CanESM5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CanESM5.ipynb) | 6 | 10,260 | 0.07 | 117 | 36.9 | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
 | [CMCC-CM2-SR5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CMCC-CM2-SR5.ipynb) | 24 | 3,600 | 0.024 | 140 | 34.0 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | 6,949 | 5,147 | 2,813 |
 | [EC-Earth3](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_EC-Earth3.ipynb) | 51 | 7,830 | 0.043 | 122 | 37.7 | :white_check_mark: | N/A | N/A | :white_check_mark: | :white_check_mark: | Fail | 5,798 | 816 |
-| [HadGEM3-GC31-MM](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_HadGEM3-GC31-MM.ipynb) | 53 | 5,310 | 0.005 | 108 | 33.5 | :question: | N/A | N/A | :white_check_mark: | :x: | Fail | 2,995 | 441 |
+| [HadGEM3-GC31-MM](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_HadGEM3-GC31-MM.ipynb) | 53 | 5,310 | 0.005 | 108 | 33.5 | :white_check_mark: | N/A | N/A | :white_check_mark: | :x: | Fail | 2,995 | 441 |
 | [IPSL-CM6A-LR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_IPSL-CM6A-LR.ipynb) | 12 | 5,130 | 0.032 | 131 | 31.9 | :white_check_mark: | N/A | :white_check_mark: :question: | :white_check_mark: | :x: | Fail | 12,666 | 3,324 |
-| [MIROC6](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MIROC6.ipynb) | 18 | 5,310 | 0.087 | 139 | 32.9 | :question: | :x: | :question: | :white_check_mark: :question: | :x: | PFail | PFail | 2,663 |
+| [MIROC6](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MIROC6.ipynb) | 18 | 5,310 | 0.087 | 139 | 32.9 | :white_check_mark: | :x: | :question: | :white_check_mark: :question: | :x: | PFail | PFail | 2,663 |
 | [MPI-ESM1-2-HR](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MPI-ESM1-2-HR.ipynb) | 31 | 5,310 | 0.019 | 76.5 | 26.5 | :white_check_mark: | N/A | N/A | :white_check_mark: | N/A | Fail | Fail | 241 |
 | [MRI-ESM2-0](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MRI-ESM2-0.ipynb) | 25 | 2,400 | 0.044 | 93 | 25.8 | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: | Fail | Fail | 1,814 |
-| [NorCPM1](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_NorCPM1.ipynb) | 9 | 9,440 | 0.034 | 120 | 23.9 | :question: | N/A | N/A | :white_check_mark: | TODO | Fail | Fail | Fail |
+| [NorCPM1](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_NorCPM1.ipynb) | 9 | 9,440 | 0.034 | 120 | 23.9 | :white_check_mark: | N/A | N/A | :white_check_mark: | TODO | Fail | Fail | Fail |
 
-*Resolution is the number of grid boxes in the target east coast region  
-RP = return period (in years) determined from a GEV fit to the raw or additive (add) / multiplicative (mulc) bias corrected data   
-Fail means the KS and Anderson Darling tests failed (pfail means some but not all lead times failed)
-
+*Res(olution) is the number of grid boxes in the target east coast region.  
+RP = return period (in years) determined from a GEV fit to the raw or additive (add) / multiplicative (mulc) bias corrected data.   
+Fail means the KS and Anderson Darling tests failed (pfail means some but not all lead times failed).  
+The shape, loc and scale relate to the GEV fit to the raw data.
 
 ### Results
 
 Comments on the UNSEEN methodology in general:
 - Different models can produce vastly different return period estimates
 - Different bias correction methods can produce vastly different return period estimates
-- Commonly used similarity tests tend to produce the same result in the sense that they tend to accept or reject the same models (pending implementation of the moments method)
-- GEV fit (as opposed to empirical) return period estimates 
+- Commonly used similarity tests tend to produce the same result in the sense that they tend to accept or reject the same models (this is true for KS and Anderson Darling - I still need to check the moments method)
 
 Comments on the east coast rainfall event:
-- All models except the multiplicative bias corrected MPI-ESM1-2-HR produce a return period estimate larger (in most cases much larger) than the fit to observations (297 years). If we take the model data at face value this suggests the 2022 east coast rain event was more rare than the observational record indicates.
-- Reasons why we might be cautious in taking the model data at face value:
+- Practically all models (all except the multiplicative bias corrected MPI-ESM1-2-HR data) produce a return period estimate larger (in most cases much larger) than the fit to observations (297 years). If we take the model data at face value, this suggests the 2022 east coast rain event was more rare than the observational record indicates.
+- Given the large spread in models, it's difficult to make a precise estimate of the event return period
+- Reasons why we might be cautious about taking the model data at face value:
   - Relative to the AGCD data, the models systematically underestimate the RX15day mean and variance (i.e. they are all biased in the same way) 
-  - While the models tended to simulate realistic MSLP patterns, the limited number of models that archived geopotential height and zonal wind data showed an inability to realistically simulte upper level features associated with high rainfall along the east coast
+  - The limited number of models that archived geopotential height and zonal wind data showed an inability to realistically simulte upper level features associated with the most extreme RX15day events in the observations
   - The higher resolution models tended to have lower return period estimates (so with even higher resolution models we might get even lower return periods)
-- TODO: Conditional likelihoods / return periods for the two models that show a strong relationship between RX15day and ENSO? 
+  - Most models do not capture the relationship seen in the observations between RX15day and ENSO
+  - The model sample sizes are too small (there was only ever a very small number of RX15day values > 410mm)
+- Reasons why we might have some confidence in the model data:
+  - They all do a good job of RX15day seasonality
+  - They all simulate realistic MSLP patterns 
+
+Still to do:
+- Conditional likelihoods / return periods for the two models that show a strong relationship between RX15day and ENSO 
    
 
 ## Individual models
@@ -152,7 +167,7 @@ Comments on the east coast rainfall event:
   - Raw KS/AD: Fail
   - Add KS/AD: Pass
   - Mulc KS/AD: Pass
-  - mslp: gets high over NZ but low near QLD :question:
+  - mslp: gets high over NZ (and strong low near QLD) :white_check_mark:
   - z500: N/A
   - u300: N/A
 - Return period:
@@ -198,7 +213,7 @@ Comments on the east coast rainfall event:
   - Raw KS/AD: Passes some but not all lead times
   - Add KS/AD: Passes some but not all lead times
   - Mulc KS/AD: Pass
-  - mslp: gets high over NZ but low over QLD :question:
+  - mslp: gets high over NZ (and strong low over QLD) :white_check_mark:
   - z500: weird :x:
   - u300: split jet some but not others :question:
 - Return period:
@@ -209,7 +224,7 @@ Comments on the east coast rainfall event:
   - Mulc empirical: 1/5310 = 5,310 years
   - Mulc GEV: 2,663 years
 - Stationary
-- Seasonality: Jan-Mar peak but not such a big trough in winter :white_check_mark: :question:
+- Seasonality: Jan-Mar peak (but not such a big trough in winter) :white_check_mark:
 - ENSO: Strong relationship with La Nina :white_check_mark:
 
 ### MPI-ESM1-2-HR
@@ -267,7 +282,7 @@ Comments on the east coast rainfall event:
   - Raw KS/AD: Fail
   - Add KS/AD: Fail
   - Mulc KS/AD: Fails 7/8 AD and 4/8 KS
-  - mslp: gets high over NZ but low over QLD :question:
+  - mslp: gets high over NZ (and strong low over QLD) :white_check_mark:
   - z500: N/A
   - u300: N/A 
 - Return period:
