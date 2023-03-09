@@ -4,7 +4,7 @@
 
 In the observational (AGCD) record,
 the unprecedented 2022 RX15day value of 410mm has a return period of 297 years
-(calculated from a GEV fit to 122 annual values with a shape,).
+(calculated from a GEV fit to 122 annual values with a shape).
 There is a strong tendency for RX15day events to occur in February and March
 (with the least likely months being Jul-Sep),
 and large RX15day values have exclusively occurred in La Nina or ENSO neutral months
@@ -37,12 +37,15 @@ Comments on the UNSEEN methodology in general:
 - Different models can produce vastly different return period estimates
 - Different bias correction methods can produce vastly different return period estimates
 - Commonly used similarity tests tend to produce the same result in the sense that they tend to accept or reject the same models (pending implementation of the moments method)
--  
 
 Comments on the east coast rainfall event:
-- Higher resolution models tended to have lower return period estimates
-- 
-
+- All models except the multiplicative bias corrected MPI-ESM1-2-HR produce a return period estimate larger (in most cases much larger) than the fit to observations (297 years). If we take the model data at face value this suggests the 2022 east coast rain event was more rare than the observational record indicates.
+- Reasons why we might be cautious in taking the model data at face value:
+  - The models systematically underestimate 
+  - The higher resolution models tended to have lower return period estimates (so with even higher resolution models we might get even lower return periods)
+  - While the models tended to simulate realistic MSLP patterns, the limited number of models that archived geopotential height and zonal wind data showed an inability to realistically simulte upper level features associated with high rainfall along the east coast
+- It wasn't appropriate to attempt to derive 
+   
 
 ## Individual models
 
