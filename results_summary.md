@@ -20,8 +20,8 @@ but they just lump all the data into one bucket (to increase the overall sample 
 
 ### Model summary
 
-| Model           | Res* | Sample size | shape | loc | scale | mslp | z500 | u300 | Seasonality | ENSO | RP raw | RP add | RP mulc |
-| ---             | ---  | ---         | ---   | --- | ---   | ---  | ---  | ---  | ---         | ---  | ---    | ---    | ---     |
+| Model           | Res | Sample size | shape | loc | scale | mslp | z500 | u300 | Seasonality | ENSO | RP raw | RP add | RP mulc |
+| ---             | --- | ---         | ---   | --- | ---   | ---  | ---  | ---  | ---         | ---  | ---    | ---    | ---     |
 | [AGCD](https://github.com/AusClimateService/east-coast-rain/blob/master/AGCD_east-coast-flood-region.ipynb) | | 122 | -0.06 | 143 | 39.3 | | | | | | 297 | | | 
 | [CAFE](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CAFE.ipynb) | 11 | 34,944 | 0.029 | 98 | 27.5 | :white_check_mark: | :question: | :x: | :white_check_mark: | :question: | Fail | 49,834 | 1,114 |
 | [CanESM5](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_CanESM5.ipynb) | 6 | 10,260 | 0.07 | 117 | 36.9 | :white_check_mark: | :question: | :question: | :white_check_mark: | :x: | Fail | 14,700 | 1,377 |
@@ -34,7 +34,11 @@ but they just lump all the data into one bucket (to increase the overall sample 
 | [MRI-ESM2-0](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_MRI-ESM2-0.ipynb) | 25 | 2,400 | 0.044 | 93 | 25.8 | :white_check_mark: | N/A | N/A | :white_check_mark: | :question: | Fail | Fail | 1,814 |
 | [NorCPM1](https://github.com/AusClimateService/east-coast-rain/blob/master/analysis_NorCPM1.ipynb) | 9 | 9,440 | 0.034 | 120 | 23.9 | :white_check_mark: | N/A | N/A | :white_check_mark: | TODO | Fail | Fail | Fail |
 
-*Res(olution) is the number of grid boxes in the target east coast region.  
+Click on the model name to view a notebook with a detailed analysis for that model.  
+:white_check_mark: = good model performance.   
+:question: = questionable model performance.  
+:x: = poor model performance.  
+Res(olution) is the number of grid boxes in the target east coast region.  
 RP = return period (in years) determined from a GEV fit to the raw or additive (add) / multiplicative (mulc) bias corrected data.   
 Fail means the KS and Anderson Darling tests failed (pfail means some but not all lead times failed).  
 The shape, loc and scale relate to the GEV fit to the raw data.
