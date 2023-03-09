@@ -52,7 +52,8 @@ Comments on the UNSEEN methodology in general:
 
 Comments on the east coast rainfall event:
 - Practically all models (all except the multiplicative bias corrected MPI-ESM1-2-HR data) produce a return period estimate larger (in most cases much larger) than the fit to observations (297 years). If we take the model data at face value, this suggests the 2022 east coast rain event was more rare than the observational record indicates.
-- Given the large spread in models, it's difficult to make a precise estimate of the event return period
+  - Given the large spread in models, it's difficult to make a precise estimate of the event return period
+- There doesn't appear to an appreciable climate change influence on the likelihood of the event (all but 1 of the models show no substantial change in the RX15day exceedance curve on a decade-by-decade basis)
 - Reasons why we might be cautious about taking the model data at face value:
   - Relative to the AGCD data, the models systematically underestimate the RX15day mean and variance (i.e. they are all biased in the same way) 
   - The limited number of models that archived geopotential height and zonal wind data showed an inability to realistically simulte upper level features associated with the most extreme RX15day events in the observations
