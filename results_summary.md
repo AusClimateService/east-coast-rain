@@ -37,14 +37,15 @@ Comments on the UNSEEN methodology in general:
 - Different models can produce vastly different return period estimates
 - Different bias correction methods can produce vastly different return period estimates
 - Commonly used similarity tests tend to produce the same result in the sense that they tend to accept or reject the same models (pending implementation of the moments method)
+- GEV fit (as opposed to empirical) return period estimates 
 
 Comments on the east coast rainfall event:
 - All models except the multiplicative bias corrected MPI-ESM1-2-HR produce a return period estimate larger (in most cases much larger) than the fit to observations (297 years). If we take the model data at face value this suggests the 2022 east coast rain event was more rare than the observational record indicates.
 - Reasons why we might be cautious in taking the model data at face value:
-  - The models systematically underestimate 
-  - The higher resolution models tended to have lower return period estimates (so with even higher resolution models we might get even lower return periods)
+  - Relative to the AGCD data, the models systematically underestimate the RX15day mean and variance (i.e. they are all biased in the same way) 
   - While the models tended to simulate realistic MSLP patterns, the limited number of models that archived geopotential height and zonal wind data showed an inability to realistically simulte upper level features associated with high rainfall along the east coast
-- It wasn't appropriate to attempt to derive 
+  - The higher resolution models tended to have lower return period estimates (so with even higher resolution models we might get even lower return periods)
+- TODO: Conditional likelihoods / return periods for the two models that show a strong relationship between RX15day and ENSO? 
    
 
 ## Individual models
