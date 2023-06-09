@@ -1,14 +1,12 @@
 .PHONY: help
 
-include ${MODEL_CONFIG}
-#Model config file needs to define MODEL, MODEL_IO_OPTIONS (optional) MIN_LEAD,
-#BASE_PERIOD, BASE_PERIOD_TEXT and TIME_PERIOD_TEXT
-include ${REGION_CONFIG}
-#Region config file nees to define SHAPEFILE and REGION_NAME
+include ${CONFIG}
 
 PROJECT_DIR=/g/data/xv83/dbi599/east-coast-rain
 VAR=pr
 DASK_CONFIG=dask_local.yml
+SHAPEFILE=/g/data/xv83/dbi599/east-coast-rain/shapefiles/east-coast-flood.shp
+REGION_NAME=east-coast-flood-region
 
 RX15DAY_OPTIONS_FCST=--lat_bnds -40 -20 --lon_bnds 140 160 --shp_overlap 0.1 --output_chunks lead_time=50
 RX15DAY_OPTIONS=--variables ${VAR} --spatial_agg weighted_mean --rolling_sum_window 15 --shapefile ${SHAPEFILE} --time_freq A-AUG --time_agg max --input_freq D --units_timing middle --reset_times --complete_time_agg_periods --dask_config ${DASK_CONFIG} --verbose --time_agg_dates --units pr='mm day-1'
@@ -22,6 +20,7 @@ FCST_TOS_DATA=/home/599/dbi599/east-coast-rain/file_lists/${MODEL}_${EXPERIMENT}
 OBS_DATA := $(sort $(wildcard /g/data/xv83/agcd-csiro/precip/daily/precip-total_AGCD-CSIRO_r005_*_daily.nc))
 RX15DAY_FCST=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 INDEPENDENCE_PLOT=${PROJECT_DIR}/figures/independence-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
+STABILITY_PLOT=${PROJECT_DIR}/figures/stability-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
 RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
 RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.zarr.zip
 SIMILARITY_ADDITIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
@@ -31,6 +30,7 @@ SIMILARITY_RAW=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT
 FILEIO=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/fileio
 PAPERMILL=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/papermill
 INDEPENDENCE=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/independence
+STABILITY=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/stability
 BIAS_CORRECTION=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/bias_correction
 SIMILARITY=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/similarity
 
@@ -59,6 +59,11 @@ ${RX15DAY_FCST} : ${FCST_DATA}
 independence-test : ${INDEPENDENCE_PLOT}
 ${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 	${INDEPENDENCE} $< ${VAR} $@
+
+## stability-test : stability tests
+stability-test : ${STABILITY_PLOT}
+${STABILITY_PLOT} : ${RX15DAY_FCST}
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --min_lead ${MIN_LEAD} --uncertainty
 
 ## bias-correction-additive : additive bias corrected forecast data using observations
 bias-correction : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED}
@@ -97,7 +102,7 @@ analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DA
 
 ## help : show this message
 help :
-	@echo 'make [target] [-Bnf] MODEL_CONFIG=config_file.mk REGION_CONFIG=config_file.mk'
+	@echo 'make [target] [-Bnf] CONFIG=config_file.mk'
 	@echo ''
 	@echo 'valid targets:'
 	@grep -h -E '^##' ${MAKEFILE_LIST} | sed -e 's/## //g' | column -t -s ':'
