@@ -20,7 +20,8 @@ FCST_TOS_DATA=/home/599/dbi599/east-coast-rain/file_lists/${MODEL}_${EXPERIMENT}
 OBS_DATA := $(sort $(wildcard /g/data/xv83/agcd-csiro/precip/daily/precip-total_AGCD-CSIRO_r005_*_daily.nc))
 RX15DAY_FCST=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.zarr.zip
 INDEPENDENCE_PLOT=${PROJECT_DIR}/figures/independence-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
-STABILITY_PLOT=${PROJECT_DIR}/figures/stability-test_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
+STABILITY_PLOT_EMPIRICAL=${PROJECT_DIR}/figures/stability-test-empirical_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
+STABILITY_PLOT_GEV=${PROJECT_DIR}/figures/stability-test-gev_Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}.png
 RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
 RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-${EXPERIMENT}_${TIME_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.zarr.zip
 SIMILARITY_ADDITIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
@@ -60,10 +61,15 @@ independence-test : ${INDEPENDENCE_PLOT}
 ${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 	${INDEPENDENCE} $< ${VAR} $@
 
-## stability-test : stability tests
-stability-test : ${STABILITY_PLOT}
-${STABILITY_PLOT} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --min_lead ${MIN_LEAD} --uncertainty
+## stability-test-empirical : stability tests (empirical)
+stability-test-empirical : ${STABILITY_PLOT_EMPIRICAL}
+${STABILITY_PLOT_EMPIRICAL} : ${RX15DAY_FCST}
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --min_lead ${MIN_LEAD} --return_method empirical --uncertainty
+
+## stability-test-gev : stability tests (GEV fit)
+stability-test-gev : ${STABILITY_PLOT_GEV}
+${STABILITY_PLOT_GEV} : ${RX15DAY_FCST}
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --min_lead ${MIN_LEAD} --return_method gev --uncertainty
 
 ## bias-correction-additive : additive bias corrected forecast data using observations
 bias-correction : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED}
@@ -97,8 +103,8 @@ ${NINO_FCST} : ${FCST_TOS_DATA}
 
 ## rx15day-forecast-analysis : analysis of rx15day from forecast data
 rx15day-forecast-analysis : analysis_${MODEL}.ipynb
-analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${SIMILARITY_ADDITIVE_BIAS} ${SIMILARITY_MULTIPLICATIVE_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${FCST_DATA} ${NINO_FCST}
-	${PAPERMILL} -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_add_bc_file $(word 4,$^) -p model_mulc_bc_file $(word 5,$^) -p similarity_add_bc_file $(word 6,$^) -p similarity_mulc_bc_file $(word 7,$^) -p similarity_raw_file $(word 8,$^) -p independence_plot $(word 9,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 10,$^) -p nino_file $(word 11,$^) $< $@
+analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${SIMILARITY_ADDITIVE_BIAS} ${SIMILARITY_MULTIPLICATIVE_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${STABILITY_PLOT} ${FCST_DATA} ${NINO_FCST}
+	${PAPERMILL} -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_add_bc_file $(word 4,$^) -p model_mulc_bc_file $(word 5,$^) -p similarity_add_bc_file $(word 6,$^) -p similarity_mulc_bc_file $(word 7,$^) -p similarity_raw_file $(word 8,$^) -p independence_plot $(word 9,$^) -p stability_plot $(word 10,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 11,$^) -p nino_file $(word 12,$^) $< $@
 
 ## help : show this message
 help :
