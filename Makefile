@@ -84,17 +84,17 @@ ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 ## similarity-test-additive-bias : similarity test between observations and additive bias corrected forecast
 similarity-test-additive-bias : ${SIMILARITY_ADDITIVE_BIAS}
 ${SIMILARITY_ADDITIVE_BIAS} : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
-	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
+	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD} --min_lead ${MIN_LEAD}
 
 ## similarity-test-multiplicative-bias : similarity test between observations and multiplicative bias corrected forecast
 similarity-test-multiplicative-bias : ${SIMILARITY_MULTIPLICATIVE_BIAS}
 ${SIMILARITY_MULTIPLICATIVE_BIAS} : ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
-	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
+	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD} --min_lead ${MIN_LEAD}
 
 ## similarity-test-raw : similarity test between observations and raw forecast
 similarity-test-raw : ${SIMILARITY_RAW}
 ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
-	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD}
+	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD} --min_lead ${MIN_LEAD}
 
 ## nino34-forecast : calculate Nino 3.4 in forecast ensemble
 nino34-forecast : ${NINO_FCST}
