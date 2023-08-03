@@ -27,6 +27,9 @@ RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED=${PROJECT_DIR}/data/Rx15day_${MODEL}-
 SIMILARITY_ADDITIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.zarr.zip
 SIMILARITY_MULTIPLICATIVE_BIAS=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.zarr.zip
 SIMILARITY_RAW=${PROJECT_DIR}/data/similarity-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_AGCD-CSIRO.zarr.zip
+MOMENTS_ADDITIVE_BIAS_PLOT=${PROJECT_DIR}/figures/moments-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-additive.png
+MOMENTS_MULTIPLICATIVE_BIAS_PLOT=${PROJECT_DIR}/figures/moments-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_bias-corrected-AGCD-CSIRO-multiplicative.png
+MOMENTS_RAW_PLOT=${PROJECT_DIR}/figures/moments-test_Rx15day_${MODEL}-${EXPERIMENT}_${BASE_PERIOD_TEXT}_annual-aug-to-sep_${REGION_NAME}_AGCD-CSIRO.png
 
 FILEIO=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/fileio
 PAPERMILL=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/papermill
@@ -34,6 +37,7 @@ INDEPENDENCE=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/independe
 STABILITY=/g/data/xv83/dbi599/miniconda3/envs/unseen2/bin/stability
 BIAS_CORRECTION=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/bias_correction
 SIMILARITY=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/similarity
+MOMENTS=/g/data/xv83/dbi599/miniconda3/envs/unseen-processing/bin/moments
 
 
 ## rx15day-obs : calculate Rx15day in observations
@@ -95,6 +99,21 @@ ${SIMILARITY_MULTIPLICATIVE_BIAS} : ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED
 similarity-test-raw : ${SIMILARITY_RAW}
 ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 	${SIMILARITY} $< $(word 2,$^) ${VAR} $@ --reference_time_period ${BASE_PERIOD} --min_lead ${MIN_LEAD}
+
+## moments-test-additive-bias : moments test between observations and additive bias corrected forecast
+moments-test-additive-bias : ${MOMENTS_ADDITIVE_BIAS_PLOT}
+${MOMENTS_ADDITIVE_BIAS_PLOT} : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD}
+
+## moments-test-multiplicative-bias : moments test between observations and multiplicative bias corrected forecast
+moments-test-multiplicative-bias : ${MOMENTS_MULTIPLICATIVE_BIAS_PLOT}
+${MOMENTS_MULTIPLICATIVE_BIAS_PLOT} : ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD}
+
+## moments-test-raw : moments test between observations and raw forecast
+moments-test-raw : ${MOMENTS_RAW_PLOT}
+${MOMENTS_RAW_PLOT} : ${RX15DAY_FCST} ${RX15DAY_OBS}
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD}
 
 ## nino34-forecast : calculate Nino 3.4 in forecast ensemble
 nino34-forecast : ${NINO_FCST}
