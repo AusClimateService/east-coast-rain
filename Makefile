@@ -1,4 +1,4 @@
-.PHONY: help
+.PHONY: help moments
 
 include ${CONFIG}
 
@@ -68,12 +68,12 @@ ${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 ## stability-test-empirical : stability tests (empirical)
 stability-test-empirical : ${STABILITY_PLOT_EMPIRICAL}
 ${STABILITY_PLOT_EMPIRICAL} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --min_lead ${MIN_LEAD} --return_method empirical --uncertainty
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method empirical --uncertainty
 
 ## stability-test-gev : stability tests (GEV fit)
 stability-test-gev : ${STABILITY_PLOT_GEV}
 ${STABILITY_PLOT_GEV} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --min_lead ${MIN_LEAD} --return_method gev --uncertainty
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method gev --uncertainty
 
 ## bias-correction-additive : additive bias corrected forecast data using observations
 bias-correction : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED}
@@ -124,6 +124,8 @@ ${NINO_FCST} : ${FCST_TOS_DATA}
 rx15day-forecast-analysis : analysis_${MODEL}.ipynb
 analysis_${MODEL}.ipynb : analysis.ipynb ${RX15DAY_OBS} ${RX15DAY_FCST} ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${SIMILARITY_ADDITIVE_BIAS} ${SIMILARITY_MULTIPLICATIVE_BIAS} ${SIMILARITY_RAW} ${INDEPENDENCE_PLOT} ${STABILITY_PLOT} ${FCST_DATA} ${NINO_FCST}
 	${PAPERMILL} -p agcd_file $(word 2,$^) -p model_file $(word 3,$^) -p model_add_bc_file $(word 4,$^) -p model_mulc_bc_file $(word 5,$^) -p similarity_add_bc_file $(word 6,$^) -p similarity_mulc_bc_file $(word 7,$^) -p similarity_raw_file $(word 8,$^) -p independence_plot $(word 9,$^) -p stability_plot $(word 10,$^) -p model_name ${MODEL} -p min_lead ${MIN_LEAD} -p region_name ${REGION_NAME} -p shape_file ${SHAPEFILE} -p file_list $(word 11,$^) -p nino_file $(word 12,$^) $< $@
+
+moments : ${MOMENTS_ADDITIVE_BIAS_PLOT} ${MOMENTS_MULTIPLICATIVE_BIAS_PLOT} ${MOMENTS_RAW_PLOT}
 
 ## help : show this message
 help :
