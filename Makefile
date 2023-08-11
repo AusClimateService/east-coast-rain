@@ -107,8 +107,8 @@ ${MOMENTS_ADDITIVE_BIAS_PLOT} : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DA
 
 ## moments-test-multiplicative-bias : moments test between observations and multiplicative bias corrected forecast
 moments-test-multiplicative-bias : ${MOMENTS_MULTIPLICATIVE_BIAS_PLOT}
-${MOMENTS_MULTIPLICATIVE_BIAS_PLOT} : ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
-	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD}
+${MOMENTS_MULTIPLICATIVE_BIAS_PLOT} : ${RX15DAY_FCST} ${RX15DAY_OBS} ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} 
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --bias_file $(word 3,$^) --min_lead ${MIN_LEAD}
 
 ## moments-test-raw : moments test between observations and raw forecast
 moments-test-raw : ${MOMENTS_RAW_PLOT}
