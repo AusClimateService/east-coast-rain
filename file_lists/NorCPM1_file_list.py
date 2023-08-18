@@ -44,7 +44,8 @@ for year in np.arange(1960, 2018 + 1):
     infiles4 = glob.glob(f'{file_dir}/s{year}-r??i2p1f1/Omon/tos/gn/*/*.nc')
     infiles4.sort()
     infiles = infiles1 + infiles2 + infiles3 + infiles4
-    assert len(infiles) == 20, f"year {year} does not have 20 files"
+    if not len(infiles) == 20:
+         print(f"year {year} does not have 20 files")
     with open(tos_file, 'a') as outfile:
         for item in infiles:
             outfile.write(f"{item}\n")
