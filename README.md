@@ -20,6 +20,7 @@ make rx15day-forecast-analysis CONFIG=config/config_CanESM5.mk
 The shapefile used in the Makefile was created by running `prepare_shapefile.ipynb`,
 while the two conda environments referred to in the Makefile correspond to
 `environment-unseen2.yml` and `environment-unseen-processing.yml`.
+The scripts used to prepare the file list for each model can be found in the `file_lists/` directory.
 
 The figures that appear in the paper summarising the results from all the models
 were generated using `ensemble_figures.ipynb`.
