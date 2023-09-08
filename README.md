@@ -28,24 +28,3 @@ shapefiles for the Drainage Divisions can be downloaded from the ABS
 There was [more record rainfall later in March](https://www.weatherzone.com.au/news/floodwater-rising-after-250-to-350mm-hits-qld-and-nsw-in-last-24-hours/536798)
 so a longer timescale for the analysis might also be appropriate.
 
-### Models
-
-:white_check_mark: on NCI  
-:black_square_button: created download list  
-:grey_question: need to check status  
-:x: doesn't exist  
-
-| Model           | daily pr | daily psl | monthly tos |  daily zg |  daily ua |
-| ---             | ---      | ---       | ---         | --        | --        |
-| BCC-CSM2-MR     | :black_square_button: | :black_square_button:  | :x: | :x: | :x: |
-| CMCC-CM2-SR5    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
-| CanESM5         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| EC-Earth3       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
-| EC-Earth3-CC    | :black_square_button: (small) | :black_square_button: | :black_square_button: | :x: | :x: |
-| EC-Earth3-HR    | :black_square_button: (small) | :black_square_button: | :black_square_button: | :x: | :x: |
-| HadGEM3-GC31-MM | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
-| IPSL-CM6A-LR    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: |
-| MIROC6          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| MPI-ESM1-2-HR   | :white_check_mark: | :white_check_mark: | :grey_question: (only 5 of 10 runs) | :x: | :x: |
-| MRI-ESM2-0      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x: |
-| NorCPM1         | :white_check_mark: | :white_check_mark: | :grey_question: (1 missing) | :x: | :x: |
