@@ -68,12 +68,12 @@ ${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 ## stability-test-empirical : stability tests (empirical)
 stability-test-empirical : ${STABILITY_PLOT_EMPIRICAL}
 ${STABILITY_PLOT_EMPIRICAL} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method empirical --uncertainty
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method empirical --uncertainty --units "Rx15day (mm)"
 
 ## stability-test-gev : stability tests (GEV fit)
 stability-test-gev : ${STABILITY_PLOT_GEV}
 ${STABILITY_PLOT_GEV} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method gev --uncertainty
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method gev --uncertainty --units "Rx15day (mm)"
 
 ## bias-correction-additive : additive bias corrected forecast data using observations
 bias-correction : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED}
@@ -103,17 +103,17 @@ ${SIMILARITY_RAW} : ${RX15DAY_FCST} ${RX15DAY_OBS}
 ## moments-test-additive-bias : moments test between observations and additive bias corrected forecast
 moments-test-additive-bias : ${MOMENTS_ADDITIVE_BIAS_PLOT}
 ${MOMENTS_ADDITIVE_BIAS_PLOT} : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED} ${RX15DAY_OBS}
-	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD}
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD} --units mm
 
 ## moments-test-multiplicative-bias : moments test between observations and multiplicative bias corrected forecast
 moments-test-multiplicative-bias : ${MOMENTS_MULTIPLICATIVE_BIAS_PLOT}
 ${MOMENTS_MULTIPLICATIVE_BIAS_PLOT} : ${RX15DAY_FCST} ${RX15DAY_OBS} ${RX15DAY_FCST_MULTIPLICATIVE_BIAS_CORRECTED} 
-	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --bias_file $(word 3,$^) --min_lead ${MIN_LEAD}
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --bias_file $(word 3,$^) --min_lead ${MIN_LEAD} --units mm
 
 ## moments-test-raw : moments test between observations and raw forecast
 moments-test-raw : ${MOMENTS_RAW_PLOT}
 ${MOMENTS_RAW_PLOT} : ${RX15DAY_FCST} ${RX15DAY_OBS}
-	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD}
+	${MOMENTS} $< $(word 2,$^) ${VAR} --outfile $@ --min_lead ${MIN_LEAD} --units mm
 
 ## nino34-forecast : calculate Nino 3.4 in forecast ensemble
 nino34-forecast : ${NINO_FCST}
