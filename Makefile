@@ -68,12 +68,12 @@ ${INDEPENDENCE_PLOT} : ${RX15DAY_FCST}
 ## stability-test-empirical : stability tests (empirical)
 stability-test-empirical : ${STABILITY_PLOT_EMPIRICAL}
 ${STABILITY_PLOT_EMPIRICAL} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method empirical --uncertainty --units "Rx15day (mm)"
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method empirical --uncertainty --units "Rx15day (mm)" --ymax 550
 
 ## stability-test-gev : stability tests (GEV fit)
 stability-test-gev : ${STABILITY_PLOT_GEV}
 ${STABILITY_PLOT_GEV} : ${RX15DAY_FCST}
-	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method gev --uncertainty --units "Rx15day (mm)"
+	${STABILITY} $< ${VAR} Rx15day --start_years ${STABILITY_START_YEARS} --outfile $@ --return_method gev --uncertainty --units "Rx15day (mm)" --ymax 550
 
 ## bias-correction-additive : additive bias corrected forecast data using observations
 bias-correction : ${RX15DAY_FCST_ADDITIVE_BIAS_CORRECTED}
